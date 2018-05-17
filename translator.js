@@ -48,18 +48,6 @@ module.exports = {
 		return sendFiles();
 	},
 
-	// read from file
-	readFile: function(file) {
-		console.log(file);
-		http.createServer(function (req, res) {
-		  fs.readFile(dir + "/" + file, function(err, data) {
-		    res.writeHead(200, {'Content-Type': 'text/html'});
-		    res.write(data);
-		    res.end();
-		  });
-		}).listen(3600);
-	},
-
 	// route for translator
 	translateRoute: function () {
 		return "/dashboard/translator";

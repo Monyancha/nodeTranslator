@@ -60,14 +60,14 @@ function start() {
 // send POST to /quick
 function quick() {
 	getValues();
-	document.querySelectorAll("form")[0].setAttribute("action", "/dashboard/translator/quick")
+	document.querySelectorAll("form")[0].setAttribute("action", "/translator/quick");
 	document.querySelectorAll("form")[0].submit();
 }
 
 // send POST to /stepByStep
 function stepByStep() {
 	getValues();
-	document.querySelectorAll("form")[0].setAttribute("action", "/dashboard/translator/stepByStep")
+	document.querySelectorAll("form")[0].setAttribute("action", "/translator/stepByStep");
 	document.querySelectorAll("form")[0].submit();
 }
 
