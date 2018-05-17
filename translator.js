@@ -18,7 +18,7 @@ function asyncFunction (file, cb) {
   }, 100);
 }
 
-// send the array as JSON format in GET request located in mail file
+// send the array as JSON format in GET request located in main file
 function sendFiles() {
 	return JSON.stringify(allFiles);
 }

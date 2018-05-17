@@ -11,25 +11,24 @@ function start() {
 		// parse JSON
 		let files = JSON.parse(data);
 
-		// get every file and create select option
+		// get every file and create select options
         files.forEach(file => {
         	let option = document.createElement("option");
         	option.value = file;
         	option.innerHTML = file;
 
-        	// append to select element
+        	// append to select file element
         	document.getElementById("selectFile").appendChild(option);
         });
    });
 
+	// get data from JSON file and create options
 	data.forEach(contry => {
-
 		let option = document.createElement("option");
         option.value = contry.code;
         option.innerHTML = contry.name;
 
-        // append to select element
+        // append to select country element
         document.getElementById("selectCountry").appendChild(option);
-		console.log(contry);
 	});
 }
