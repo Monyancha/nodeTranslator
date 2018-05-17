@@ -12,7 +12,7 @@ module.exports = {
 			// check all files
 			files.forEach(file => {
 				// check if extension is correct
-				if (path.extname(file) === ".handlebars" || path.extname(file) === "html") {
+				if (path.extname(file) === ".handlebars" || path.extname(file) === ".html") {
 				  	console.log(file);
 				}
 			});
