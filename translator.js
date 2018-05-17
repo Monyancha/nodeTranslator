@@ -17,5 +17,9 @@ module.exports = {
 				}
 			});
 		});
+	}, 
+	// route for translator
+	translateRoute: function () {
+		return "/dashboard/translator";
 	}
 };
