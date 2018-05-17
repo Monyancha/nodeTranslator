@@ -21,4 +21,15 @@ function start() {
         	document.getElementById("selectFile").appendChild(option);
         });
    });
+
+	data.forEach(contry => {
+
+		let option = document.createElement("option");
+        option.value = contry.code;
+        option.innerHTML = contry.name;
+
+        // append to select element
+        document.getElementById("selectCountry").appendChild(option);
+		console.log(contry);
+	});
 }
