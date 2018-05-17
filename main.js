@@ -50,4 +50,33 @@ function start() {
         document.getElementById("selectCountryFrom").appendChild(optionFrom);
         document.getElementById("selectCountryTo").appendChild(optionTo);
 	});
+
+	// init modes
+	let btns = document.getElementsByClassName("translatorBtn");
+	btns[0].addEventListener("click", quick);
+	btns[1].addEventListener("click", stepByStep);
+}
+
+// send POST to /quick
+function quick() {
+	getValues();
+	document.querySelectorAll("form")[0].setAttribute("action", "/dashboard/translator/quick")
+	document.querySelectorAll("form")[0].submit();
+}
+
+// send POST to /stepByStep
+function stepByStep() {
+	getValues();
+	document.querySelectorAll("form")[0].setAttribute("action", "/dashboard/translator/stepByStep")
+	document.querySelectorAll("form")[0].submit();
+}
+
+// get values
+function getValues() {
+	// set values
+	let selects = document.querySelectorAll("select");
+	let inputs = document.querySelectorAll("form")[0].querySelectorAll("input");
+	for (let i = 0; i < selects.length; i++) {
+		inputs[i].value = selects[i].value.toLowerCase();
+	}
 }
