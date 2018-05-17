@@ -8,6 +8,7 @@ function start() {
 
     // get the data from translator.js
 	$.get("/dashboard/translator/files", {}, function(data){
+
 		// parse JSON
 		let files = JSON.parse(data);
 
@@ -24,11 +25,29 @@ function start() {
 
 	// get data from JSON file and create options
 	data.forEach(contry => {
-		let option = document.createElement("option");
-        option.value = contry.code;
-        option.innerHTML = contry.name;
 
-        // append to select country element
-        document.getElementById("selectCountry").appendChild(option);
+		// from
+		let optionFrom = document.createElement("option");
+        optionFrom.value = contry.code;
+        optionFrom.innerHTML = contry.name;
+
+        // set NO as pre-selected
+        if (optionFrom.value === "NO") {
+        	optionFrom.setAttribute("selected", true);
+        }
+
+   		// to
+        let optionTo = document.createElement("option");
+        optionTo.value = contry.code;
+        optionTo.innerHTML = contry.name;
+
+        // set US as pre-selected
+        if (optionTo.value === "US") {
+        	optionTo.setAttribute("selected", true);
+        }
+
+        // append to select country elements
+        document.getElementById("selectCountryFrom").appendChild(optionFrom);
+        document.getElementById("selectCountryTo").appendChild(optionTo);
 	});
 }
