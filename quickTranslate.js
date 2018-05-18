@@ -34,12 +34,18 @@ function start() {
 			checkHTML(child);
 		});
 
+		let scripts = frame.querySelectorAll("script");
+		scripts.forEach(script => {
+			//script.src = script.src + "s";
+			//console.log(script)
+		});
+
 		console.log(elements);
 		translate();
 	});
 }
 
-// set up the translator
+// initalize translator
 var textField;
 var elementCounter = 1;
 function translate() {
@@ -53,22 +59,21 @@ function translate() {
 	document.getElementById("nextElement").addEventListener("click", translateOk);
 }
 
-// update 
+// update and go to next text
 function translateOk() {
 
 	// remove event if no more text to translate
 	console.log(elementCounter);
 	console.log(elements.length);
-	if (elementCounter === elements.length) {
-		document.getElementById("nextElement").removeEventListener("click", translateOk);
-	}
-
-	else {
+	if (elementCounter != elements.length) {
 		elementCounter++;
 		translator(elements[elementCounter - 1].innerHTML);
 		document.getElementById("eleCount").innerHTML = "Element " + elementCounter + " of " + elements.length;
 		if (elementCounter === elements.length) {
-			this.setAttribute("disabled", false);
+			//this.setAttribute("disabled", false);
+			this.removeEventListener("click", translateOk);
+			this.addEventListener("click", downloadFile);
+			this.innerHTML = "<i class='fa fa-arrow-right mr-1' aria-hidden='true'></i> Download File!";
 		}
 	}
 
@@ -84,7 +89,9 @@ function translateOk() {
 	}
 }
 
+// go to previous text
 function previous() {
+	document.getElementById("nextElement").innerHTML = "<i class='fa fa-arrow-right mr-1' aria-hidden='true'></i> Looks good!";
 	document.getElementById("back").addEventListener("click", previous);
 	document.getElementById("back").removeAttribute("disabled", true);
 	elementCounter--;
@@ -132,4 +139,24 @@ function checkHTML(child) {
 		// set class for referance
 		child.classList.add("translatedElement" + elements.indexOf(child));
 	}
+}
+
+// download translated file
+function downloadFile() {
+	//console.log(123);
+	//console.log(frame);
+	//document.getElementById("fileData").value = frame.outerHTML;
+	//console.log(document.getElementById("fileData").value);
+	//document.getElementById("downloadFile").submit();
+
+	var request = new XMLHttpRequest();
+	request.onreadystatechange= function () {
+	    if (request.readyState==4) {
+	    	console.log(request);
+	        //handle response
+	    }
+	}
+	request.open("POST", "/translator/download", true);
+	request.setRequestHeader("X-XSS-Protection", 0);
+	request.send(frame.outerHTML);
 }
