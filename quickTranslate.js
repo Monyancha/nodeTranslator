@@ -30,10 +30,6 @@ function start() {
 		let text = frame.querySelectorAll("*");
 		let count = 0;
 		text.forEach(child => {
-			count++;
-			// set class for referance
-			child.classList.add("translatedElement" + count);
-
 			// run html validation
 			checkHTML(child);
 		});
@@ -61,14 +57,19 @@ function translate() {
 function translateOk() {
 
 	// remove event if no more text to translate
+	console.log(elementCounter);
+	console.log(elements.length);
 	if (elementCounter === elements.length) {
-		this.removeEventListener("click", translateOk);
+		document.getElementById("nextElement").removeEventListener("click", translateOk);
 	}
 
 	else {
 		elementCounter++;
 		translator(elements[elementCounter - 1].innerHTML);
 		document.getElementById("eleCount").innerHTML = "Element " + elementCounter + " of " + elements.length;
+		if (elementCounter === elements.length) {
+			this.setAttribute("disabled", false);
+		}
 	}
 
 	// init previous
@@ -92,6 +93,11 @@ function previous() {
 		document.getElementById("back").setAttribute("disabled", false);
 	}
 
+	else {
+		document.getElementById("nextElement").removeAttribute("disabled", true);
+		document.getElementById("nextElement").addEventListener("click", translateOk);
+	}
+
 	translator(elements[elementCounter - 1].innerHTML);
 	document.getElementById("eleCount").innerHTML = "Element " + elementCounter + " of " + elements.length;
 }
@@ -104,6 +110,16 @@ function translator(text) {
 		+ "&lang=" + to + "&text=" + text, {}, function(data) {
 			textField.value = data.text;
 			console.log(data);
+
+			// update element
+			elements.forEach(child => {
+				if (child.classList.contains("translatedElement" + (elementCounter - 1))) {
+					child.innerHTML = data.text;
+					console.log(child.innerHTML);
+					console.log(child.outerHTML);
+				}
+			});
+			//document.getElementsByClassName("translatedElement" + elementCounter)[0].innerHTML = data.text;
 	});
 }
 
@@ -113,5 +129,7 @@ function checkHTML(child) {
 	if (test === false && child.innerHTML != "" && child.innerHTML != " ") {
 		// push to array if ok
 		elements.push(child);
+		// set class for referance
+		child.classList.add("translatedElement" + elements.indexOf(child));
 	}
 }
