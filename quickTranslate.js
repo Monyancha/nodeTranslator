@@ -70,6 +70,30 @@ function translateOk() {
 		translator(elements[elementCounter - 1].innerHTML);
 		document.getElementById("eleCount").innerHTML = "Element " + elementCounter + " of " + elements.length;
 	}
+
+	// init previous
+	if (elementCounter > 1) {
+		document.getElementById("back").addEventListener("click", previous);
+		document.getElementById("back").removeAttribute("disabled", true);
+	}
+
+	else {
+		document.getElementById("back").removeEventListener("click", previous);
+		document.getElementById("back").setAttribute("disabled", false);
+	}
+}
+
+function previous() {
+	document.getElementById("back").addEventListener("click", previous);
+	document.getElementById("back").removeAttribute("disabled", true);
+	elementCounter--;
+	if (elementCounter < 2) {
+		document.getElementById("back").removeEventListener("click", previous);
+		document.getElementById("back").setAttribute("disabled", false);
+	}
+
+	translator(elements[elementCounter - 1].innerHTML);
+	document.getElementById("eleCount").innerHTML = "Element " + elementCounter + " of " + elements.length;
 }
 
 // translate selected text
