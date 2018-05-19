@@ -1,5 +1,6 @@
 window.onload = start;
 
+// globals
 var elements = [];
 var from;
 var to;
@@ -22,9 +23,8 @@ function start() {
 		// set data to iframe and hide
 		document.getElementById("iframe").style.display = "none";
 		document.getElementById("iframe").contentDocument.write(data.html);
-		console.log(document.getElementById("iframe"));
 
-		// remove all scripts and styles and store for later
+		// get iframe data
 		frame = document.getElementById("iframe").contentDocument.childNodes[1];
 
 		// get all nodes
@@ -35,12 +35,13 @@ function start() {
 			checkHTML(child);
 		});
 
+		// translate meta tags?
 		let meta = frame.querySelectorAll("meta");
 		meta.forEach(ele => {
 			console.log(ele.attributes.content)
 		});
 
-		//console.log(elements);
+		// fire it up
 		translate();
 	});
 }
@@ -154,12 +155,6 @@ function checkHTML(child) {
 
 // download translated file
 function downloadFile() {
-	//console.log(123);
-	//console.log(frame);
-	//document.getElementById("fileData").value = frame.outerHTML;
-	//console.log(document.getElementById("fileData").value);
-	//document.getElementById("downloadFile").submit();
-
 	var request = new XMLHttpRequest();
 	request.onreadystatechange= function () {
 	    if (request.readyState==4) {
@@ -171,5 +166,6 @@ function downloadFile() {
 	request.setRequestHeader("X-XSS-Protection", 0);
 	request.send(frame.outerHTML);
 
+	// go to created file
 	window.location.replace("/" + file);
 }
