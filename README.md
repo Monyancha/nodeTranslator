@@ -1,5 +1,5 @@
 # nodeTranslator
-Translate any standard HTML page to the available languages within the Yandex API. Create new corresponding handlebars / HTML file and routes to to the translated file. Download file comming soon.
+Developed for freelance customers as part of custom CMS. Translate any HTML based page to the available languages within the Yandex API. Create new corresponding handlebars / HTML file and GET route for the translated file.
 <br>
 <br>
 
