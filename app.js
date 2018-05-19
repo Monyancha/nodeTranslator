@@ -51,7 +51,7 @@ app.post("/translator/stepByStep", (req, res) => {
 		   	return console.log(err);
 		}
 
-		let htmlString = {html: data, from: req.body.from, to: req.body.to, file: req.body.file};
+		let htmlString = {html: data, to: req.body.to, file: req.body.file};
 		fileData = htmlString;
 	});
 

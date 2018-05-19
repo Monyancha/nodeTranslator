@@ -2,7 +2,6 @@ window.onload = start;
 
 // globals
 var elements = [];
-var from;
 var to;
 var frame;
 var file;
@@ -15,10 +14,11 @@ function start() {
     // get the data from translator.js
 	$.get("/translator/fileData", {}, function(data){
 
-		// set from and to languages
-		from = data.from;
+		// set data
 		to = data.to;
 		file = data.file.split(".")[0] + to;
+
+		console.log(to);
 
 		// set data to iframe and hide
 		document.getElementById("iframe").style.display = "none";
@@ -156,7 +156,7 @@ function checkHTML(child) {
 // download translated file
 function downloadFile() {
 	var request = new XMLHttpRequest();
-	request.onreadystatechange= function () {
+	request.onreadystatechange = function () {
 	    if (request.readyState==4) {
 	    	console.log(request);
 	        //handle response
