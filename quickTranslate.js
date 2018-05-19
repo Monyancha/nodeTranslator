@@ -4,6 +4,7 @@ var elements = [];
 var from;
 var to;
 var frame;
+var file;
 function start() {
 	// init select
     $(document).ready(function() {
@@ -16,7 +17,7 @@ function start() {
 		// set from and to languages
 		from = data.from;
 		to = data.to;
-		console.log(to);
+		file = data.file.split(".")[0] + to;
 
 		// set data to iframe and hide
 		document.getElementById("iframe").style.display = "none";
@@ -34,13 +35,12 @@ function start() {
 			checkHTML(child);
 		});
 
-		let scripts = frame.querySelectorAll("script");
-		scripts.forEach(script => {
-			//script.src = script.src + "s";
-			//console.log(script)
+		let meta = frame.querySelectorAll("meta");
+		meta.forEach(ele => {
+			console.log(ele.attributes.content)
 		});
 
-		console.log(elements);
+		//console.log(elements);
 		translate();
 	});
 }
@@ -62,6 +62,8 @@ function translate() {
 // update and go to next text
 function translateOk() {
 
+	// disable temp
+	this.setAttribute("disabled", true);
 	// remove event if no more text to translate
 	console.log(elementCounter);
 	console.log(elements.length);
@@ -115,18 +117,23 @@ function translator(text) {
 	$.get("https://translate.yandex.net/api/v1.5/tr.json/translate?"
 		+ "key=trnsl.1.1.20180518T012329Z.b73950d2865d8de5.dda04c58ef76240ad5589baf431e12f8f1f5a0bd"
 		+ "&lang=" + to + "&text=" + text, {}, function(data) {
-			textField.value = data.text;
-			console.log(data);
+	}).done(function(data) {
+        textField.value = data.text;
+		console.log(data);
+		document.getElementById("nextElement").removeAttribute("disabled", true);
 
-			// update element
-			elements.forEach(child => {
-				if (child.classList.contains("translatedElement" + (elementCounter - 1))) {
-					child.innerHTML = data.text;
-					console.log(child.innerHTML);
-					console.log(child.outerHTML);
-				}
-			});
-			//document.getElementsByClassName("translatedElement" + elementCounter)[0].innerHTML = data.text;
+		// update element
+		elements.forEach(child => {
+			if (child.classList.contains("translatedElement" + (elementCounter - 1))) {
+				child.innerHTML = data.text;
+				console.log(child.innerHTML);
+				console.log(child.outerHTML);
+			}
+		});
+    })
+    .fail(function(data) {
+        document.getElementById("nextElement").removeAttribute("disabled", true);
+		console.log("hmm..error");
 	});
 }
 
@@ -159,4 +166,6 @@ function downloadFile() {
 	request.open("POST", "/translator/download", true);
 	request.setRequestHeader("X-XSS-Protection", 0);
 	request.send(frame.outerHTML);
+
+	window.location.replace("/" + file);
 }
