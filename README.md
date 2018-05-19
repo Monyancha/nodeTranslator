@@ -1,5 +1,5 @@
 # nodeTranslator
-Developed for freelance customers as part of custom CMS. Translate any HTML based page to the available languages within the Yandex API. Create new corresponding handlebars / HTML file and GET route for the translated file.
+Developed for freelance customers as part of a custom CMS. Translate any HTML based page to the available languages within the Yandex API. Create new corresponding handlebars / HTML file and GET route for the translated file.
 <br>
 <br>
 
