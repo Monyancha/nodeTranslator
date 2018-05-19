@@ -75,7 +75,9 @@ function translateOk() {
 			//this.setAttribute("disabled", false);
 			this.removeEventListener("click", translateOk);
 			this.addEventListener("click", downloadFile);
-			this.innerHTML = "<i class='fa fa-arrow-right mr-1' aria-hidden='true'></i> Download File!";
+			this.classList.remove("btn-outline-success");
+			this.classList.add("btn-success");
+			this.innerHTML = "<i class='fa fa-arrow-right mr-1' aria-hidden='true'></i> Create File!";
 		}
 	}
 
@@ -93,6 +95,8 @@ function translateOk() {
 
 // go to previous text
 function previous() {
+	document.getElementById("nextElement").classList.remove("btn-success");
+	document.getElementById("nextElement").classList.add("btn-outline-success");
 	document.getElementById("nextElement").innerHTML = "<i class='fa fa-arrow-right mr-1' aria-hidden='true'></i> Looks good!";
 	document.getElementById("back").addEventListener("click", previous);
 	document.getElementById("back").removeAttribute("disabled", true);
