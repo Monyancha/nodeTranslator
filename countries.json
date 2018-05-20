@@ -67,6 +67,7 @@ data = [
 {"name": "Eritrea", "code": "ER"},
 {"name": "Estonia", "code": "EE"},
 {"name": "Ethiopia", "code": "ET"},
+{"name": "England", "code": "EN"},
 {"name": "Falkland Islands (Malvinas)", "code": "FK"},
 {"name": "Faroe Islands", "code": "FO"},
 {"name": "Fiji", "code": "FJ"},

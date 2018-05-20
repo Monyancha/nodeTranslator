@@ -63,6 +63,15 @@ function translate() {
 // update and go to next text
 function translateOk() {
 
+	// update element
+	elements.forEach(child => {
+		if (child.classList.contains("translatedElement" + (elementCounter - 1))) {
+			child.innerHTML = textField.value;
+			console.log(child.innerHTML);
+			console.log(child.outerHTML);
+		}
+	});
+
 	// disable temp
 	this.setAttribute("disabled", true);
 	// remove event if no more text to translate
@@ -126,15 +135,6 @@ function translator(text) {
         textField.value = data.text;
 		console.log(data);
 		document.getElementById("nextElement").removeAttribute("disabled", true);
-
-		// update element
-		elements.forEach(child => {
-			if (child.classList.contains("translatedElement" + (elementCounter - 1))) {
-				child.innerHTML = data.text;
-				console.log(child.innerHTML);
-				console.log(child.outerHTML);
-			}
-		});
     })
     .fail(function(data) {
         document.getElementById("nextElement").removeAttribute("disabled", true);

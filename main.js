@@ -32,7 +32,7 @@ function start() {
         optionTo.innerHTML = contry.name;
 
         // set RU as pre-selected
-        if (optionTo.value === "RU") {
+        if (optionTo.value === "EN") {
         	optionTo.setAttribute("selected", true);
         }
 
